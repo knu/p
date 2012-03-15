@@ -1,0 +1,48 @@
+.Dd March 15, 2012
+.Dt E 1
+.Os FreeBSD
+.Sh NAME
+.Nm p
+.Nd a lazy wrapper for
+.Sq Pf "$" Ev PAGER
+.Sh SYNOPSIS
+.Nm
+.Nm
+.Ar file ...
+.Sh DESCRIPTION
+.Nm
+is a lazy wrapper for
+.Sq Pf "$" Ev PAGER .
+When invoked as a piped pager (i.e. the standard input is not a
+terminal) without a file argument, it delays a pager invocation until
+it gets more lines than are displayable in the current terminal.  The
+line number limit is estimated by subtracting two from the terminal's
+height to leave room for shell prompts.
+.Pp
+If any argument is given or the standard input is a terminal, it
+becomes eager enough to delegate everything to the pager.  This means
+calling
+.Nm
+with a
+.Ar -
+.Po
+.Ar ... |
+.Nm
+.Ar -
+.Pc
+always invokes the pager even if it gets small input.
+.Pp
+Lastly, if the standard output is not a terminal, it just passes the
+standard input through to the standard output without calling a pager.
+.Sh ENVIRONMENT
+.Bl -tag -width PAGER
+.It Ev PAGER
+The command (or command line) wrapped around and invoked by this
+wrapper.  If not defined,
+.Nm less
+is used.
+.El
+.Sh SEE ALSO
+.Xr less 1
+.Sh AUTHOR
+.An Akinori MUSHA Aq knu@iDaemons.org
