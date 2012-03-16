@@ -13,7 +13,7 @@ p ...
 
 ## DESCRIPTION
 
-`p(1)` is a smart wrapper for `$PAGER`.  When invoked as a piped pager
+`p(1)` is a lazy wrapper for `$PAGER`.  When invoked as a piped pager
 (i.e. the standard input is not a terminal) without a file argument,
 it delays a pager invocation until it gets more lines than are
 displayable in the current terminal.  The line number limit is
