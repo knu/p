@@ -46,7 +46,7 @@ IFS='
 
 i=0; n=$((`tput lines`-2)); l=$((`tput cols`))
 while [ $i -le $n ]; do
-    read line || exec printf %s "$lines"
+    read -r line || exec printf %s "$lines"
     lines="$lines$line
 "
     i=$((i+1))
