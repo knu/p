@@ -38,7 +38,14 @@ fi
 
 IN_LAZY_PAGER=1; export IN_LAZY_PAGER
 
-[ -t 0 -o $# -gt 0 ] && exec ${PAGER-more} "$@"
+argc="$#"
+
+set -- ${PAGER-more} "$@"
+case "$1" in
+    *\=*) set env "$@" ;;
+esac
+
+[ -t 0 -o $argc -gt 0 ] && exec "$@"
 
 lines=
 
