@@ -41,17 +41,36 @@ IN_LAZY_PAGER=1; export IN_LAZY_PAGER
 [ -t 0 -o $# -gt 0 ] && exec ${PAGER-more} "$@"
 
 lines=
-IFS='
-'
 
-i=0; n=$((`tput lines`-2)); l=$((`tput cols`))
-while [ $i -le $n ]; do
+# ts: tab stop
+# nl: number of physycal lines
+# dh: display height
+# dw: display width
+ts=8; nl=0; dh=$((`tput lines`-2)); dw=$((`tput cols`))
+while [ $nl -le $dh ]; do
+    IFS='
+'
     read -r line || exec printf %s "$lines"
     lines="$lines$line
 "
-    i=$((i+1))
-    q=$(( (${#line}-1)/l ))
-    [ $q -gt 0 ] && i=$((i+q))
+    nl=$((nl+1))
+
+    # w: line width
+    # t: number of consecutive tabs
+    w=0; t=$((2+${#line}+1))
+    IFS='	'
+    for a in .	$line.
+    do
+        if [ $w -gt 0 ]; then
+            w=$((w+ts-w%ts))
+            t=$((t-1))
+        fi
+        w=$((w+${#a}))
+        t=$((t-${#a}))
+    done
+    w=$((w-8+t*ts-1))
+
+    nl=$((nl+(w-1)/dw))
 done
 
 ( printf %s "$lines"; exec /bin/cat ) | exec ${PAGER-more}
