@@ -13,12 +13,15 @@ p ...
 
 ## DESCRIPTION
 
-`p(1)` is a lazy wrapper for `$PAGER`.  When invoked as a piped pager
-(i.e. the standard input is not a terminal) without a file argument,
-it delays a pager invocation until it gets more lines than are
-displayable in the current terminal.  The line number limit is
-estimated by subtracting two from the terminal's height to leave room
-for shell prompts.
+`p(1)` is a lazy wrapper for `$PAGER`, which brings any pager a
+similar functionality of the `-F`/`--quit-if-one-screen` option of
+`less(1)`.
+
+When invoked as a piped pager (i.e. the standard input is not a
+terminal) without a file argument, it delays a pager invocation until
+it gets more lines than are displayable in the current terminal.  The
+line number limit is estimated by subtracting two from the terminal's
+height to leave room for shell prompts.
 
 If any argument is given or the standard input is a terminal, it
 becomes eager enough to delegate everything to the pager.  This means

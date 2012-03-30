@@ -12,7 +12,12 @@
 .Sh DESCRIPTION
 .Nm
 is a lazy wrapper for
-.Sq Pf "$" Ev PAGER .
+.Sq Pf "$" Ev PAGER ,
+which brings any pager a similar functionality of the
+.Fl F Ns Pf / Fl -quit-if-one-screen
+option of
+.Xr less 1 .
+.Pp
 When invoked as a piped pager (i.e. the standard input is not a
 terminal) without a file argument, it delays a pager invocation until
 it gets more lines than are displayable in the current terminal.  The
