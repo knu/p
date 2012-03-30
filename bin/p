@@ -47,6 +47,11 @@ esac
 
 [ -t 0 -o $argc -gt 0 ] && exec "$@"
 
+case "$*" in
+    less|*/less)
+	exec "$@" -F ;;
+esac
+
 lines=
 
 # ts: tab stop
