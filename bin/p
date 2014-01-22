@@ -29,7 +29,7 @@
 
 VERSION="0.2.0"
 
-[ -t 1 ] || exec /bin/cat
+[ -t 1 -a -n "$PAGER" ] || exec /bin/cat
 
 if [ -n "${IN_LAZY_PAGER+1}" ]; then
     echo "$0: recursive invocation detected." >&2
@@ -40,7 +40,7 @@ IN_LAZY_PAGER=1; export IN_LAZY_PAGER
 
 argc="$#"
 
-set -- ${PAGER-more} "$@"
+set -- ${PAGER} "$@"
 case "$1" in
     *\=*) set env "$@" ;;
 esac
