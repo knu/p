@@ -49,7 +49,7 @@ esac
 
 case "$*" in
     less|*/less)
-	exec "$@" -F ;;
+	exec "$@" -FX ;;
 esac
 
 lines=
